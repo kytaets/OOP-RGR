@@ -72,7 +72,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Лінія"
+            android:contentDescription="Пунктирна лінія"
             android:src="@drawable/dashed_line" />
 
         <ImageButton
@@ -125,7 +125,7 @@
             android:src="@drawable/cube_image" />
 
         <ImageButton
-            android:id="@+id/butto87"
+            android:id="@+id/cylinder_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"

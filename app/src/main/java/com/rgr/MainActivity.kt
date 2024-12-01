@@ -13,23 +13,27 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.rgr.adapters.ObjectsListAdapter
+
 import com.rgr.adapters.FileOptionsAdapter
 
 
 class MainActivity : AppCompatActivity() {
 
   lateinit var filesBtn: Button
-  lateinit var objectsBtn: Button
-  lateinit var objectsList: ListView
   lateinit var editorView: Editor
 
   lateinit var dotBtn: ImageButton
   lateinit var lineBtn: ImageButton
+  lateinit var dashedLineBtn: ImageButton
+  lateinit var segmentBtn: ImageButton
+  lateinit var arrowBtn: ImageButton
   lateinit var rectBtn: ImageButton
   lateinit var ellipseBtn: ImageButton
+  lateinit var diamondBtn: ImageButton
   lateinit var cubeBtn: ImageButton
-  lateinit var segmentBtn: ImageButton
+  lateinit var cylinderBtn: ImageButton
+
+
   private var selectedButton: ImageButton? = null
 
   lateinit var historyBtn: Button
@@ -51,21 +55,24 @@ class MainActivity : AppCompatActivity() {
     // Main buttons
     filesBtn = findViewById(R.id.filesButton)
 
-    // Object buttons
+    // Shape buttons
     dotBtn = findViewById(R.id.dot_btn)
     lineBtn = findViewById(R.id.line_btn)
+    dashedLineBtn = findViewById(R.id.dashed_line_btn)
+    segmentBtn = findViewById(R.id.segment_btn)
+    arrowBtn = findViewById(R.id.arrow_btn)
     rectBtn = findViewById(R.id.rect_btn)
     ellipseBtn = findViewById(R.id.ellipse_btn)
+    diamondBtn = findViewById(R.id.diamond_btn)
     cubeBtn = findViewById(R.id.cube_btn)
-    segmentBtn = findViewById(R.id.segment_btn)
+    cylinderBtn = findViewById(R.id.cylinder_btn)
 
     // History buttons
     historyBtn = findViewById(R.id.history_btn)
 
     // Lists
-    objectsList = findViewById(R.id.objectsList)
     filesList = findViewById(R.id.filesList)
-    val buttons = listOf(dotBtn, lineBtn, rectBtn, ellipseBtn, cubeBtn, segmentBtn)
+    val buttons = listOf(dotBtn, lineBtn, dashedLineBtn, segmentBtn, arrowBtn, rectBtn, ellipseBtn, diamondBtn, cubeBtn, cylinderBtn)
 
     // Editor View
     editorView = findViewById(R.id.editorView)
@@ -102,8 +109,6 @@ class MainActivity : AppCompatActivity() {
 
     // File picker
     filesBtn.setOnClickListener {
-      objectsList.visibility = View.GONE
-
       when {
         filesList.visibility == View.VISIBLE -> filesList.visibility = View.GONE
         else -> filesList.visibility = View.VISIBLE

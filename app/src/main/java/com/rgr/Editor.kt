@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import com.rgr.Shapes.ArrowShape
 import com.rgr.Shapes.CubeShape
 import com.rgr.Shapes.DotShape
 import com.rgr.Shapes.EllipseShape
@@ -57,20 +58,18 @@ class Editor @JvmOverloads constructor(
     fun setCurrentShape(shapeType: String) {
         currentShapeType = shapeType
         currentShape = when (shapeType) {
+            "Крапка" -> DotShape()
+            "Лінія" -> LineShape()
+            "Пунктирна лінія" -> LineShape()
+            "Відрізок" -> SegmentShape()
+            "Стрілка" -> ArrowShape()
             "Прямокутник" -> RectangleShape()
             "Еліпс" -> EllipseShape()
-            "Лінія" -> LineShape()
-            "Крапка" -> DotShape()
+            "Ромб" -> RectangleShape()
             "Куб" -> CubeShape()
-            "Відрізок" -> SegmentShape()
+            "Циліндр" -> CubeShape()
             else -> null
         }
-    }
-
-    fun setShapeIndex(addIndex: Int) {
-        shapesIndex = (shapesIndex ?: 0) + addIndex
-        shapesIndex = shapesIndex?.coerceIn(0, shapes.size)
-        invalidate()
     }
 
     // History interaction
@@ -149,12 +148,10 @@ class Editor @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val limit = shapesIndex?.coerceAtMost(shapes.size) ?: shapes.size
-
-        for (i in 0 until limit) {
-            val shape = shapes[i]
+        for (shape in shapes) {
             shape.draw(canvas, shape.highlighted, false)
         }
+
 
         currentShape?.draw(canvas, false, true)
     }
@@ -164,12 +161,6 @@ class Editor @JvmOverloads constructor(
         when (event.action) {
 
             MotionEvent.ACTION_DOWN -> {
-                shapesIndex?.let { index ->
-                    if (index < shapes.size) {
-                        shapes.subList(index, shapes.size).clear()
-                        updateShapesCallback?.invoke(shapes)
-                    }
-                }
                 currentShape?.setCoordinates(event.x, event.y, event.x, event.y)
                 invalidate()
             }
@@ -183,7 +174,6 @@ class Editor @JvmOverloads constructor(
                 currentShape?.setCoordinates(currentShape?.startX ?: 0f, currentShape?.startY ?: 0f, event.x, event.y)
                 currentShape?.let {
                     addShape(it)
-                    shapesIndex = shapes.size
 
                     shapeLogger.logShape(currentShapeType, it)
                 }
