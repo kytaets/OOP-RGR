@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Lab2</string>
+
+    <string-array name="objects">
+
+        <item id="dot">Крапка</item>
+        <item id="line">Лінія</item>
+        <item id="rect">Прямокутник</item>
+        <item id="ellipse">Еліпс</item>
+        <item id="cube">Куб</item>
+        <item id="segment">Відрізок</item>
+    </string-array>
+</resources>

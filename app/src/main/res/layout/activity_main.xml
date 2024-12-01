@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/filesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="Файл"
+            android:textColor="#000000"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/objectsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="Об'єкти"
+            android:textColor="#000000"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/history_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape"
+            android:text="Історія"
+            android:textColor="#000000"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <Button
+            android:id="@+id/dot_btn"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:background="@drawable/objects_icon_btn_shape"
+            android:drawableTop="@drawable/dot_image"
+            android:text="Крапка"
+            android:textColor="#00000000"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/line_btn"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:background="@drawable/objects_icon_btn_shape"
+            android:drawableTop="@drawable/line_image"
+            android:text="Лінія"
+            android:textColor="#00000000"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/rect_btn"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:background="@drawable/objects_icon_btn_shape"
+            android:drawableTop="@drawable/rectangle_image"
+            android:text="Прямокутник"
+            android:textColor="#00000000"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/ellipse_btn"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:background="@drawable/objects_icon_btn_shape"
+            android:drawableTop="@drawable/ellipse_image"
+            android:text="Еліпс"
+            android:textColor="#00000000"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/cube_btn"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:background="@drawable/objects_icon_btn_shape"
+            android:drawableTop="@drawable/cube_image"
+            android:text="Куб"
+            android:textColor="#00000000"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/segment_btn"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:background="@drawable/objects_icon_btn_shape"
+            android:drawableTop="@drawable/segment_image"
+            android:text="Відрізок"
+            android:textColor="#00000000"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/prevShapeBtn"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.2"
+            android:background="@drawable/objects_icon_btn_shape"
+            android:drawableTop="@drawable/prev_btn_image"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/nextShapeBtn"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.2"
+            android:background="@drawable/objects_icon_btn_shape"
+            android:drawableTop="@drawable/next_btn_image"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <com.rgr.Editor
+            android:id="@+id/editorView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/objectsList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:visibility="gone">
+
+            </ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/filesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/historyList"
+            layout="@layout/history_list"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
