@@ -21,19 +21,9 @@
             android:id="@+id/filesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:background="@drawable/button_shape"
             android:text="Файл"
-            android:textColor="#000000"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/objectsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_shape"
-            android:text="Об'єкти"
             android:textColor="#000000"
             app:backgroundTint="@null" />
 
@@ -41,7 +31,7 @@
             android:id="@+id/history_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:background="@drawable/button_shape"
             android:text="Історія"
             android:textColor="#000000"
@@ -49,108 +39,107 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/dark_blue"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStart="5dp"
+        app:contentInsetLeft="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <Button
+        <ImageButton
             android:id="@+id/dot_btn"
-            android:layout_width="20dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="0.1"
-            android:background="@drawable/objects_icon_btn_shape"
-            android:drawableTop="@drawable/dot_image"
-            android:text="Крапка"
-            android:textColor="#00000000"
-            app:backgroundTint="@null" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Крапка"
+            android:src="@drawable/dot_image" />
 
-        <Button
+        <ImageButton
             android:id="@+id/line_btn"
-            android:layout_width="20dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="0.1"
-            android:background="@drawable/objects_icon_btn_shape"
-            android:drawableTop="@drawable/line_image"
-            android:text="Лінія"
-            android:textColor="#00000000"
-            app:backgroundTint="@null" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Лінія"
+            android:src="@drawable/line_image" />
 
-        <Button
-            android:id="@+id/rect_btn"
-            android:layout_width="20dp"
+        <ImageButton
+            android:id="@+id/dashed_line_btn"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="0.1"
-            android:background="@drawable/objects_icon_btn_shape"
-            android:drawableTop="@drawable/rectangle_image"
-            android:text="Прямокутник"
-            android:textColor="#00000000"
-            app:backgroundTint="@null" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Лінія"
+            android:src="@drawable/dashed_line" />
 
-        <Button
-            android:id="@+id/ellipse_btn"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:layout_weight="0.1"
-            android:background="@drawable/objects_icon_btn_shape"
-            android:drawableTop="@drawable/ellipse_image"
-            android:text="Еліпс"
-            android:textColor="#00000000"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/cube_btn"
-            android:layout_width="20dp"
-            android:layout_height="40dp"
-            android:layout_weight="0.1"
-            android:background="@drawable/objects_icon_btn_shape"
-            android:drawableTop="@drawable/cube_image"
-            android:text="Куб"
-            android:textColor="#00000000"
-            app:backgroundTint="@null" />
-
-        <Button
+        <ImageButton
             android:id="@+id/segment_btn"
-            android:layout_width="20dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="0.1"
-            android:background="@drawable/objects_icon_btn_shape"
-            android:drawableTop="@drawable/segment_image"
-            android:text="Відрізок"
-            android:textColor="#00000000"
-            app:backgroundTint="@null" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Відрізок"
+            android:src="@drawable/segment_image" />
 
-        <Button
-            android:id="@+id/prevShapeBtn"
-            android:layout_width="20dp"
+        <ImageButton
+            android:id="@+id/arrow_btn"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="0.2"
-            android:background="@drawable/objects_icon_btn_shape"
-            android:drawableTop="@drawable/prev_btn_image"
-            app:backgroundTint="@null" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Стрілка"
+            android:src="@drawable/arrow" />
 
-        <Button
-            android:id="@+id/nextShapeBtn"
-            android:layout_width="20dp"
+
+        <ImageButton
+            android:id="@+id/rect_btn"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="0.2"
-            android:background="@drawable/objects_icon_btn_shape"
-            android:drawableTop="@drawable/next_btn_image"
-            app:backgroundTint="@null" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Прямокутник"
+            android:src="@drawable/rectangle_image" />
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/ellipse_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Еліпс"
+            android:src="@drawable/ellipse_image" />
+
+        <ImageButton
+            android:id="@+id/diamond_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Ромб"
+            android:src="@drawable/diamond" />
+
+        <ImageButton
+            android:id="@+id/cube_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Куб"
+            android:src="@drawable/cube_image" />
+
+        <ImageButton
+            android:id="@+id/butto87"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Циліндр"
+            android:src="@drawable/cylinder" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <com.rgr.Editor
             android:id="@+id/editorView"

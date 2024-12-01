@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.graphics.Color
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,18 +24,14 @@ class MainActivity : AppCompatActivity() {
   lateinit var objectsList: ListView
   lateinit var editorView: Editor
 
-  lateinit var dotBtn: Button
-  lateinit var lineBtn: Button
-  lateinit var rectBtn: Button
-  lateinit var ellipseBtn: Button
-  lateinit var cubeBtn: Button
-  lateinit var segmentBtn: Button
-  private var selectedButton: Button? = null
+  lateinit var dotBtn: ImageButton
+  lateinit var lineBtn: ImageButton
+  lateinit var rectBtn: ImageButton
+  lateinit var ellipseBtn: ImageButton
+  lateinit var cubeBtn: ImageButton
+  lateinit var segmentBtn: ImageButton
+  private var selectedButton: ImageButton? = null
 
-  lateinit var objectName: String
-
-  lateinit var prevShapeBtn: Button
-  lateinit var nextShapeBtn: Button
   lateinit var historyBtn: Button
   private lateinit var shapeHistoryDialog: ShapeHistoryDialog
 
@@ -53,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
     // Main buttons
     filesBtn = findViewById(R.id.filesButton)
-    objectsBtn = findViewById(R.id.objectsButton)
 
     // Object buttons
     dotBtn = findViewById(R.id.dot_btn)
@@ -64,15 +60,12 @@ class MainActivity : AppCompatActivity() {
     segmentBtn = findViewById(R.id.segment_btn)
 
     // History buttons
-    prevShapeBtn = findViewById(R.id.prevShapeBtn)
-    nextShapeBtn = findViewById(R.id.nextShapeBtn)
     historyBtn = findViewById(R.id.history_btn)
 
     // Lists
     objectsList = findViewById(R.id.objectsList)
     filesList = findViewById(R.id.filesList)
     val buttons = listOf(dotBtn, lineBtn, rectBtn, ellipseBtn, cubeBtn, segmentBtn)
-    val objects = resources.getStringArray(R.array.objects)
 
     // Editor View
     editorView = findViewById(R.id.editorView)
@@ -81,38 +74,9 @@ class MainActivity : AppCompatActivity() {
     shapeHistoryDialog = ShapeHistoryDialog(this)
 
     // Adapters
-    val objectListAdapter = ObjectsListAdapter(this, objects)
     val fileAdapter = FileOptionsAdapter(this)
-    objectsList.adapter = objectListAdapter
     filesList.adapter = fileAdapter
 
-
-    // Object buttons listeners
-    objectsBtn.setOnClickListener {
-      filesList.visibility = View.GONE
-
-      when {
-        objectsList.visibility == View.VISIBLE -> objectsList.visibility = View.GONE
-        else -> objectsList.visibility = View.VISIBLE
-      }
-    }
-
-    objectsList.setOnItemClickListener { parent, _, position, _ ->
-      val currentEditor = Editor.getInstance()
-
-      objectName = parent.getItemAtPosition(position).toString()
-
-      objectListAdapter.setSelectedPosition(position)
-
-      objectsList.visibility = View.GONE
-      currentEditor.visibility = View.VISIBLE
-
-      selectedButton?.setBackgroundColor(Color.parseColor("#6B89FF"))
-      selectedButton = buttons.find { it.text == objectName }
-      selectedButton?.setBackgroundColor(Color.parseColor("#5067BF"))
-
-      currentEditor.setCurrentShape(objectName)
-    }
 
     for (button in buttons) {
       button.setOnClickListener {
@@ -122,29 +86,17 @@ class MainActivity : AppCompatActivity() {
         button.setBackgroundColor(Color.parseColor("#5067BF"))
 
         selectedButton = button
-        currentEditor.setCurrentShape(button.text.toString())
+        currentEditor.setCurrentShape(button.contentDescription.toString())
 
-        objectListAdapter.setSelectedPosition(buttons.indexOf(selectedButton))
       }
 
       button.setOnLongClickListener {
-        Toast.makeText(this, "${button.text}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${button.contentDescription}", Toast.LENGTH_SHORT).show()
         true
       }
     }
 
-
-    // History buttons listeners
-    prevShapeBtn.setOnClickListener {
-      val currentEditor = Editor.getInstance()
-      currentEditor.setShapeIndex(-1)
-    }
-
-    nextShapeBtn.setOnClickListener {
-      val currentEditor = Editor.getInstance()
-      currentEditor.setShapeIndex(+1)
-    }
-
+    // History
     historyBtn.setOnClickListener{shapeHistoryDialog.toggle()}
 
 
