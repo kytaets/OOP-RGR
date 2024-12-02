@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.graphics.Color
+import android.net.Uri
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -106,6 +107,16 @@ class MainActivity : AppCompatActivity() {
     // History
     historyBtn.setOnClickListener{shapeHistoryDialog.toggle()}
 
+    val saveAsLauncher = registerForActivityResult(
+      ActivityResultContracts.CreateDocument("text/plain")
+    ) { uri: Uri? ->
+      uri?.let {
+        val currentEditor = Editor.getInstance()
+        currentEditor.saveShapesToUri(it)
+      }
+    }
+
+
 
     // File picker
     filesBtn.setOnClickListener {
@@ -133,6 +144,10 @@ class MainActivity : AppCompatActivity() {
           currentEditor.saveShapesToDownloads(fileName)
         }
         1 -> {
+          val fileName = "shapes_${System.currentTimeMillis()}.txt"
+          saveAsLauncher.launch(fileName)
+        }
+        2 -> {
           filePicker.launch("text/*")
         }
       }

@@ -24,6 +24,7 @@ import com.rgr.adapters.ShapeSerializer
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import android.net.Uri
 
 class Editor @JvmOverloads constructor(
     context: Context,
@@ -96,6 +97,23 @@ class Editor @JvmOverloads constructor(
             shapesIndex = shapes.size
             updateShapesCallback?.invoke(shapes)
             invalidate()
+        }
+    }
+
+    fun saveShapesToUri(uri: Uri) {
+        try {
+            context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                outputStream.bufferedWriter().use { writer ->
+                    shapes.forEach { shape ->
+                        val serializedShape = ShapeSerializer().serialize(shape)
+                        writer.write("$serializedShape\n")
+                    }
+                }
+            }
+            Toast.makeText(context, "Файл збережено: $uri", Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Log.e("Editor", "Помилка збереження файлу", e)
+            Toast.makeText(context, "Помилка збереження файлу.", Toast.LENGTH_SHORT).show()
         }
     }
 

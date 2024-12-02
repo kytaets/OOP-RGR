@@ -9,7 +9,7 @@ import android.widget.TextView
 
 class FileOptionsAdapter(context: Context) : ArrayAdapter<String>(context, android.R.layout.simple_list_item_1) {
 
-  private val fileOptions = arrayOf("Зберегти файл", "Завантажити файл")
+  private val fileOptions = arrayOf("Зберегти файл", "Зберегти файл як...", "Завантажити файл")
 
   init {
     addAll(*fileOptions)
