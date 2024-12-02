@@ -11,7 +11,9 @@ import android.view.View
 import android.widget.Toast
 import com.rgr.Shapes.ArrowShape
 import com.rgr.Shapes.CubeShape
+import com.rgr.Shapes.CylinderShape
 import com.rgr.Shapes.DashedLineShape
+import com.rgr.Shapes.DiamondShape
 import com.rgr.Shapes.DotShape
 import com.rgr.Shapes.EllipseShape
 import com.rgr.Shapes.LineShape
@@ -66,9 +68,9 @@ class Editor @JvmOverloads constructor(
             "Стрілка" -> ArrowShape()
             "Прямокутник" -> RectangleShape()
             "Еліпс" -> EllipseShape()
-            "Ромб" -> RectangleShape()
+            "Ромб" -> DiamondShape()
             "Куб" -> CubeShape()
-            "Циліндр" -> CubeShape()
+            "Циліндр" -> CylinderShape()
             else -> null
         }
     }
