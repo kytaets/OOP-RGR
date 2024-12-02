@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import com.rgr.Shapes.ArrowShape
 import com.rgr.Shapes.CubeShape
+import com.rgr.Shapes.DashedLineShape
 import com.rgr.Shapes.DotShape
 import com.rgr.Shapes.EllipseShape
 import com.rgr.Shapes.LineShape
@@ -60,7 +61,7 @@ class Editor @JvmOverloads constructor(
         currentShape = when (shapeType) {
             "Крапка" -> DotShape()
             "Лінія" -> LineShape()
-            "Пунктирна лінія" -> LineShape()
+            "Пунктирна лінія" -> DashedLineShape()
             "Відрізок" -> SegmentShape()
             "Стрілка" -> ArrowShape()
             "Прямокутник" -> RectangleShape()

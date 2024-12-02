@@ -6,8 +6,6 @@ import android.graphics.DashPathEffect
 
 interface ILineShape {
 
-  val paint: Paint
-
   fun drawCoordLine(canvas: Canvas, startX: Float, startY: Float, endX: Float, endY: Float,  paint: Paint, isDrawing: Boolean) {
 
     paint.pathEffect = when (isDrawing) {
