@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dark_blue"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:contentInsetStart="5dp"
+    app:contentInsetLeft="0dp">
+
+    <ImageButton
+        android:id="@+id/dot_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Крапка"
+        android:src="@drawable/dot_image" />
+
+    <ImageButton
+        android:id="@+id/line_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Лінія"
+        android:src="@drawable/line_image" />
+
+    <ImageButton
+        android:id="@+id/dashed_line_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Пунктирна лінія"
+        android:src="@drawable/dashed_line" />
+
+    <ImageButton
+        android:id="@+id/segment_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Відрізок"
+        android:src="@drawable/segment_image" />
+
+    <ImageButton
+        android:id="@+id/arrow_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Стрілка"
+        android:src="@drawable/arrow" />
+
+    <ImageButton
+        android:id="@+id/rect_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Прямокутник"
+        android:src="@drawable/rectangle_image" />
+
+    <ImageButton
+        android:id="@+id/ellipse_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Еліпс"
+        android:src="@drawable/ellipse_image" />
+
+    <ImageButton
+        android:id="@+id/diamond_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Ромб"
+        android:src="@drawable/diamond" />
+
+    <ImageButton
+        android:id="@+id/cube_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Куб"
+        android:src="@drawable/cube_image" />
+
+    <ImageButton
+        android:id="@+id/cylinder_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Циліндр"
+        android:src="@drawable/cylinder" />
+
+</androidx.appcompat.widget.Toolbar>

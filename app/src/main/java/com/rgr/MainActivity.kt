@@ -57,6 +57,8 @@ class MainActivity : AppCompatActivity() {
     filesBtn = findViewById(R.id.filesButton)
 
     // Shape buttons
+//    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+
     dotBtn = findViewById(R.id.dot_btn)
     lineBtn = findViewById(R.id.line_btn)
     dashedLineBtn = findViewById(R.id.dashed_line_btn)
