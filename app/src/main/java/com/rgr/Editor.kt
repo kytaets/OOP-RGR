@@ -159,9 +159,8 @@ class Editor @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        scaleGestureDetector.onTouchEvent(event) // Handle scaling gestures
+        scaleGestureDetector.onTouchEvent(event)
 
-        // Handle touch events for drawing and moving shapes
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 currentShape?.setCoordinates(event.x / scaleFactor, event.y / scaleFactor, event.x / scaleFactor, event.y / scaleFactor)
@@ -176,10 +175,10 @@ class Editor @JvmOverloads constructor(
             MotionEvent.ACTION_UP -> {
                 currentShape?.setCoordinates(currentShape?.startX ?: 0f, currentShape?.startY ?: 0f, event.x / scaleFactor, event.y / scaleFactor)
                 currentShape?.let {
-                    addShape(it) // Add the shape to the list
-                    shapeLogger.logShape(currentShapeType ?: "Unknown", it) // Log the shape
+                    addShape(it)
+                    shapeLogger.logShape(currentShapeType ?: "Unknown", it)
                 }
-                setCurrentShape(currentShapeType) // Set the current shape type
+                setCurrentShape(currentShapeType)
                 invalidate()
             }
         }
