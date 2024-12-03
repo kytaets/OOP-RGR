@@ -3,6 +3,7 @@ package com.rgr
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Matrix
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -19,6 +20,7 @@ import com.rgr.Shapes.SegmentShape
 import com.rgr.Shapes.Shape
 import java.io.InputStream
 import android.net.Uri
+import android.view.ScaleGestureDetector
 import com.rgr.utils.FileManager
 
 class Editor @JvmOverloads constructor(
@@ -42,8 +44,12 @@ class Editor @JvmOverloads constructor(
         }
     }
 
+    private val scaleGestureDetector: ScaleGestureDetector = ScaleGestureDetector(context, ScaleListener())
+    private val matrix = Matrix()
+    private var scaleFactor = 1f
+
     private var currentShape: Shape? = null
-    private var currentShapeType: String = "Прямокутник"
+    private var currentShapeType: String? = null
 
     val shapes: MutableList<Shape> = mutableListOf()
     var shapesIndex: Int? = 0
@@ -56,7 +62,7 @@ class Editor @JvmOverloads constructor(
 
 
     // Shape interaction
-    fun setCurrentShape(shapeType: String) {
+    fun setCurrentShape(shapeType: String?) {
         currentShapeType = shapeType
         currentShape = when (shapeType) {
             "Крапка" -> DotShape()
@@ -113,44 +119,66 @@ class Editor @JvmOverloads constructor(
         invalidate()
     }
 
+    private inner class ScaleListener : ScaleGestureDetector.OnScaleGestureListener {
+        override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+            return true
+        }
+
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            scaleFactor *= detector.scaleFactor
+            scaleFactor = scaleFactor.coerceIn(0.1f, 5.0f)
+            matrix.setScale(scaleFactor, scaleFactor)
+            invalidate()
+            return true
+        }
+
+        override fun onScaleEnd(detector: ScaleGestureDetector) {}
+    }
+
 
     // Basic functions
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        canvas.save()
+        canvas.concat(matrix)
 
         for (shape in shapes) {
             shape.draw(canvas, shape.highlighted, false)
         }
 
-
         currentShape?.draw(canvas, false, true)
+        canvas.restore()
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
+        scaleGestureDetector.onTouchEvent(event) // Handle scaling gestures
 
+        // Handle touch events for drawing and moving shapes
+        when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                currentShape?.setCoordinates(event.x, event.y, event.x, event.y)
+                currentShape?.setCoordinates(event.x / scaleFactor, event.y / scaleFactor, event.x / scaleFactor, event.y / scaleFactor)
                 invalidate()
             }
 
             MotionEvent.ACTION_MOVE -> {
-                currentShape?.setCoordinates(currentShape?.startX ?: 0f, currentShape?.startY ?: 0f, event.x, event.y)
+                currentShape?.setCoordinates(currentShape?.startX ?: 0f, currentShape?.startY ?: 0f, event.x / scaleFactor, event.y / scaleFactor)
                 invalidate()
             }
 
             MotionEvent.ACTION_UP -> {
-                currentShape?.setCoordinates(currentShape?.startX ?: 0f, currentShape?.startY ?: 0f, event.x, event.y)
+                currentShape?.setCoordinates(currentShape?.startX ?: 0f, currentShape?.startY ?: 0f, event.x / scaleFactor, event.y / scaleFactor)
                 currentShape?.let {
-                    addShape(it)
-
-                    shapeLogger.logShape(currentShapeType, it)
+                    addShape(it) // Add the shape to the list
+                    shapeLogger.logShape(currentShapeType ?: "Unknown", it) // Log the shape
                 }
-                setCurrentShape(currentShapeType)
+                setCurrentShape(currentShapeType) // Set the current shape type
                 invalidate()
             }
         }
         return true
     }
+
+
 }

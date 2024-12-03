@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity() {
     filesBtn = findViewById(R.id.filesButton)
 
     // Shape buttons
-//    val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
     dotBtn = findViewById(R.id.dot_btn)
     lineBtn = findViewById(R.id.line_btn)
@@ -92,12 +91,20 @@ class MainActivity : AppCompatActivity() {
       button.setOnClickListener {
         val currentEditor = Editor.getInstance()
 
-        selectedButton?.setBackgroundColor(Color.parseColor("#6B89FF"))
-        button.setBackgroundColor(Color.parseColor("#5067BF"))
+        // Check if the current button is already selected
+        if (button == selectedButton) {
+          // If it's the same button, clear the selection and reset currentShape to null
+          selectedButton?.setBackgroundColor(Color.parseColor("#6B89FF")) // Reset previous selection
+          selectedButton = null
+          currentEditor.setCurrentShape(null) // Set currentShape to null
+        } else {
+          // If it's a different button, set the current shape
+          selectedButton?.setBackgroundColor(Color.parseColor("#6B89FF"))
+          button.setBackgroundColor(Color.parseColor("#5067BF"))
 
-        selectedButton = button
-        currentEditor.setCurrentShape(button.contentDescription.toString())
-
+          selectedButton = button
+          currentEditor.setCurrentShape(button.contentDescription.toString())
+        }
       }
 
       button.setOnLongClickListener {
@@ -105,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         true
       }
     }
+
 
     // History
     historyBtn.setOnClickListener{shapeHistoryDialog.toggle()}
