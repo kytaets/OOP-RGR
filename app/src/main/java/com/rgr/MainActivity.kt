@@ -19,10 +19,11 @@ import com.rgr.adapters.FileOptionsAdapter
 
 
 class MainActivity : AppCompatActivity() {
-
+  // Top menu buttons
   lateinit var filesBtn: Button
-  lateinit var editorView: Editor
+  lateinit var historyBtn: Button
 
+  // Shape buttons
   lateinit var dotBtn: ImageButton
   lateinit var lineBtn: ImageButton
   lateinit var dashedLineBtn: ImageButton
@@ -34,14 +35,18 @@ class MainActivity : AppCompatActivity() {
   lateinit var cubeBtn: ImageButton
   lateinit var cylinderBtn: ImageButton
 
+  // history
+  private lateinit var shapeHistoryDialog: ShapeHistoryDialog
+
+  // Files interaction
+  lateinit var filesList: ListView
+  private lateinit var filePicker: ActivityResultLauncher<String>
+
+  // Editor
+  lateinit var editorView: Editor
 
   private var selectedButton: ImageButton? = null
 
-  lateinit var historyBtn: Button
-  private lateinit var shapeHistoryDialog: ShapeHistoryDialog
-
-  lateinit var filesList: ListView
-  private lateinit var filePicker: ActivityResultLauncher<String>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -53,11 +58,11 @@ class MainActivity : AppCompatActivity() {
       insets
     }
 
-    // Main buttons
+    // Top menu buttons
     filesBtn = findViewById(R.id.filesButton)
+    historyBtn = findViewById(R.id.history_btn)
 
     // Shape buttons
-
     dotBtn = findViewById(R.id.dot_btn)
     lineBtn = findViewById(R.id.line_btn)
     dashedLineBtn = findViewById(R.id.dashed_line_btn)
@@ -68,9 +73,6 @@ class MainActivity : AppCompatActivity() {
     diamondBtn = findViewById(R.id.diamond_btn)
     cubeBtn = findViewById(R.id.cube_btn)
     cylinderBtn = findViewById(R.id.cylinder_btn)
-
-    // History buttons
-    historyBtn = findViewById(R.id.history_btn)
 
     // Lists
     filesList = findViewById(R.id.filesList)
@@ -87,6 +89,7 @@ class MainActivity : AppCompatActivity() {
     filesList.adapter = fileAdapter
 
 
+    // Buttons listeners
     for (button in buttons) {
       button.setOnClickListener {
         val currentEditor = Editor.getInstance()
@@ -113,10 +116,10 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-
     // History
     historyBtn.setOnClickListener{shapeHistoryDialog.toggle()}
 
+    // Files interaction
     val saveAsLauncher = registerForActivityResult(
       ActivityResultContracts.CreateDocument("text/plain")
     ) { uri: Uri? ->
@@ -126,9 +129,6 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-
-
-    // File picker
     filesBtn.setOnClickListener {
       when {
         filesList.visibility == View.VISIBLE -> filesList.visibility = View.GONE

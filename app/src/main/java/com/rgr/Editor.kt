@@ -44,20 +44,22 @@ class Editor @JvmOverloads constructor(
         }
     }
 
+    // Scaling
     private val scaleGestureDetector: ScaleGestureDetector = ScaleGestureDetector(context, ScaleListener())
     private val matrix = Matrix()
     private var scaleFactor = 1f
 
+    // Shape interaction
     private var currentShape: Shape? = null
     private var currentShapeType: String? = null
-
     val shapes: MutableList<Shape> = mutableListOf()
     var shapesIndex: Int? = 0
 
+    // Logger
     private val shapeLogger: Logger = Logger(context)
 
+    // File manager
     var updateShapesCallback: ((List<Shape>) -> Unit)? = null
-
     private val fileManager = FileManager(context)
 
 
@@ -78,6 +80,7 @@ class Editor @JvmOverloads constructor(
             else -> null
         }
     }
+
 
     // History interaction
     fun highlightShape(index: Int) {
@@ -103,6 +106,7 @@ class Editor @JvmOverloads constructor(
         }
     }
 
+
     // Files interactions
     fun saveShapesToUri(uri: Uri) {
         fileManager.saveShapesToUri(uri, shapes)
@@ -119,6 +123,8 @@ class Editor @JvmOverloads constructor(
         invalidate()
     }
 
+
+    // Scaling
     private inner class ScaleListener : ScaleGestureDetector.OnScaleGestureListener {
         override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
             return true
@@ -179,6 +185,4 @@ class Editor @JvmOverloads constructor(
         }
         return true
     }
-
-
 }
