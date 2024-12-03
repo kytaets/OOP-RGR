@@ -3,12 +3,9 @@ package com.rgr
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
-import android.os.Environment
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import com.rgr.Shapes.ArrowShape
 import com.rgr.Shapes.CubeShape
 import com.rgr.Shapes.CylinderShape
@@ -20,11 +17,9 @@ import com.rgr.Shapes.LineShape
 import com.rgr.Shapes.RectangleShape
 import com.rgr.Shapes.SegmentShape
 import com.rgr.Shapes.Shape
-import com.rgr.adapters.ShapeSerializer
-import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStream
 import android.net.Uri
+import com.rgr.utils.FileManager
 
 class Editor @JvmOverloads constructor(
     context: Context,
@@ -56,6 +51,8 @@ class Editor @JvmOverloads constructor(
     private val shapeLogger: Logger = Logger(context)
 
     var updateShapesCallback: ((List<Shape>) -> Unit)? = null
+
+    private val fileManager = FileManager(context)
 
 
     // Shape interaction
@@ -100,68 +97,20 @@ class Editor @JvmOverloads constructor(
         }
     }
 
+    // Files interactions
     fun saveShapesToUri(uri: Uri) {
-        try {
-            context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                outputStream.bufferedWriter().use { writer ->
-                    shapes.forEach { shape ->
-                        val serializedShape = ShapeSerializer().serialize(shape)
-                        writer.write("$serializedShape\n")
-                    }
-                }
-            }
-            Toast.makeText(context, "Файл збережено: $uri", Toast.LENGTH_LONG).show()
-        } catch (e: Exception) {
-            Log.e("Editor", "Помилка збереження файлу", e)
-            Toast.makeText(context, "Помилка збереження файлу.", Toast.LENGTH_SHORT).show()
-        }
+        fileManager.saveShapesToUri(uri, shapes)
     }
 
-
-    // File picker interaction
     fun saveShapesToDownloads(fileName: String) {
-        try {
-            val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val file = File(downloadsDir, fileName)
-            val outputStream = FileOutputStream(file)
-            outputStream.bufferedWriter().use { writer ->
-                shapes.forEach { shape ->
-                    val serializedShape = ShapeSerializer().serialize(shape)
-                    writer.write("$serializedShape\n")
-                }
-            }
-            Toast.makeText(context, "Файл збережено у 'Завантаження': ${file.absolutePath}", Toast.LENGTH_LONG).show()
-        } catch (e: Exception) {
-            Log.e("Editor", "Помилка збереження файлу в Завантаження", e)
-            Toast.makeText(context, "Помилка збереження файлу.", Toast.LENGTH_SHORT).show()
-        }
+        fileManager.saveShapesToDownloads(fileName, shapes)
     }
 
     fun loadShapesFromFile(inputStream: InputStream) {
-        val shapeSerializer = ShapeSerializer()
-
-        try {
-            inputStream.bufferedReader().use { reader ->
-                val fileContent = reader.readText()
-                shapes.clear()
-
-                fileContent.lines().filter { it.isNotBlank() }.forEach { line ->
-                    try {
-                        val shape = shapeSerializer.deserialize(line)
-                        shapes.add(shape)
-                    } catch (e: Exception) {
-                        Log.e("ShapeSerializer", "Error deserializing shape: $line", e)
-                    }
-                }
-
-                shapesIndex = shapes.size
-                updateShapesCallback?.invoke(shapes)
-                invalidate()
-            }
-        } catch (e: Exception) {
-            Log.e("Editor", "Error loading shapes from file", e)
-            Toast.makeText(context, "Не вдалося завантажити файл. Перевірте його формат.", Toast.LENGTH_SHORT).show()
-        }
+        fileManager.loadShapesFromFile(inputStream, shapes)
+        shapesIndex = shapes.size
+        updateShapesCallback?.invoke(shapes)
+        invalidate()
     }
 
 
