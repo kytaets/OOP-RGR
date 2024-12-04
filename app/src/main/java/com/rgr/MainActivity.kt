@@ -94,14 +94,11 @@ class MainActivity : AppCompatActivity() {
       button.setOnClickListener {
         val currentEditor = Editor.getInstance()
 
-        // Check if the current button is already selected
         if (button == selectedButton) {
-          // If it's the same button, clear the selection and reset currentShape to null
-          selectedButton?.setBackgroundColor(Color.parseColor("#6B89FF")) // Reset previous selection
+          selectedButton?.setBackgroundColor(Color.parseColor("#6B89FF"))
           selectedButton = null
-          currentEditor.setCurrentShape(null) // Set currentShape to null
+          currentEditor.setCurrentShape(null)
         } else {
-          // If it's a different button, set the current shape
           selectedButton?.setBackgroundColor(Color.parseColor("#6B89FF"))
           button.setBackgroundColor(Color.parseColor("#5067BF"))
 

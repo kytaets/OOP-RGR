@@ -31,7 +31,7 @@ class DiamondShape : Shape("Diamond") {
       val fillPaint = Paint(paint).apply {
         style = Paint.Style.FILL
         pathEffect = null
-        color = Color.parseColor("#59BFFF")
+        color = Color.parseColor("#3572EF")
       }
       canvas.drawPath(path, fillPaint)
     }
