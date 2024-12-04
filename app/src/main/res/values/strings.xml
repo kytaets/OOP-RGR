@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">Lab2</string>
+    <string name="app_name">RGR</string>
 
     <string-array name="objects">
-
         <item id="dot">Крапка</item>
         <item id="line">Лінія</item>
         <item id="rect">Прямокутник</item>
